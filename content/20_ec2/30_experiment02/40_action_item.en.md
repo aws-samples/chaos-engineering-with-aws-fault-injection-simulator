@@ -9,7 +9,7 @@ Let's find a way for faster instance scaling.
 
 Let's take a look at the file below. 
 ```
-~/environment/fisworkshop/ec2/chaos-stack/lib/chaos-product-composite-stack.ts
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/chaos-stack/lib/chaos-product-composite-stack.ts
 ```
 The UserData, which is executed when the instance is first launched, contains many contents as follows. In this case, it may take longer for the instance to initialize.
 In the demo application, to emphasize this situation a little more, we put a delay in the initialization process through the code called **sleep 180** in the middle. 

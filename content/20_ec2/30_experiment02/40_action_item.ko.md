@@ -9,7 +9,7 @@ weight: 40
 
 아래 파일을 한 번 살펴보겠습니다.
 ```
-~/environment/fisworkshop/ec2/chaos-stack/lib/chaos-product-composite-stack.ts
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/chaos-stack/lib/chaos-product-composite-stack.ts
 ```
 인스턴스가 최초 기동할 때 실행되는 UserData 항목에 아래와 같이 많은 내용들이 담겨 있습니다. 이러한 경우 인스턴스가 초기화되는데 보다 많은 시간이 소요될 수 있습니다.
 데모 어플리케이션에서는 이런 상황을 좀 더 강조하기 위해 중간에 **sleep 180** 라는 코드를 통해 좀 더 초기화 과정에서의 지연을 넣었습니다.

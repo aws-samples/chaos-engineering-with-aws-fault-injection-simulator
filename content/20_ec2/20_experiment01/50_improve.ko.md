@@ -14,7 +14,7 @@ CircuitBreaker가 동작할 수 있도록 아래 코드에서 **@CircuitBreaker 
 
 파일위치
 ```bash
-~/environment/fisworkshop/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java
 ```
 
 수정전
@@ -63,7 +63,7 @@ public List<ProductComposite.Recommendation> fallback(Exception e){
 {{% /notice %}}
 
 ```bash
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-04-redeploy-recommendation.sh
 ```
 
@@ -80,12 +80,12 @@ cd ~/environment/fisworkshop/ec2/
 recommendations의 상세내역을 보면 정상적인 응답이 아니라 fallback에 설정한 응답이 나오는 것을 볼 수 있습니다.
 
 ```
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-05-check-response-product-composite.sh
 ```
 
 ```bash
-TeamRole:~/environment/fisworkshop/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
+TeamRole:~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
 request to http://Chaos-produ-XMHKGLMY5Y8O-882044339.us-east-1.elb.amazonaws.com/product-composites/product-001
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -124,12 +124,12 @@ request to http://Chaos-produ-XMHKGLMY5Y8O-882044339.us-east-1.elb.amazonaws.com
 
 실험이 끝나면 서킷이 다시 닫히고 다시 정상적으로 recommendations의 응답이 출력되는 것을 확인할 수 있습니다.
 ```
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-05-check-response-product-composite.sh
 ```
 
 ```bash
-TeamRole:~/environment/fisworkshop/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
+TeamRole:~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
 request to http://Chaos-produ-XMHKGLMY5Y8O-882044339.us-east-1.elb.amazonaws.com/product-composites/product-001
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed

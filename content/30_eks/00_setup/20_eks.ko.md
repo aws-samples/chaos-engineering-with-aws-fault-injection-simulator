@@ -23,14 +23,14 @@ aws sts get-caller-identity
 
 다음, 클러스터를 생성하기 위한 스크립트를 내려받기 합니다. 이 예제에서는 AWS CDK를 사용할 것입니다.
 ```sh
-git clone https://github.com/dns-msa/fisworkshop.git
+git clone https://github.com/aws-samples/chaos-engineering-with-aws-fault-injection-simulator.git
 ```
 
 ## EKS 클러스터 만들기
 
 내려받은 파일을 이용하여 EKS 클러스터를 생성합니다:
 ```sh
-cd ~/environment/fisworkshop/eks/cdk
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/eks/cdk
 bash deploy.sh
 ```
 

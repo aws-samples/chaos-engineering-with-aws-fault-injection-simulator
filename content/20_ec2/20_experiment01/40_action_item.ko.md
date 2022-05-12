@@ -9,7 +9,7 @@ weight: 40
 product-composite 서비스는 recommendation 서비스를 Sync방식으로 호출하고 있습니다.
 
 ```bash
-~/environment/fisworkshop/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java 
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java 
 ```
 
 ```java
@@ -22,7 +22,7 @@ public List<ProductComposite.Recommendation> getRecommendations(String productId
 또한 이때 타임아웃은 3초로 시간이 설정되어 있습니다.
 
 ```bash
-~/environment/fisworkshop/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/AppConfig.java
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/AppConfig.java
 ```
 
 ```java

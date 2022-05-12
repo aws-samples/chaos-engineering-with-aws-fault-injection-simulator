@@ -12,7 +12,7 @@ Now, let's monitor through Dashboards created in Amazon CloudWatch. As the load 
 As the delay continues, the system goes out of the steady state and a CloudWatch alarm occurs. 
 ![image](/images/20_ec2/experiment04_02.png)
 
-Open the `~/environment/fisworkshop/ec2/chaos-stack/files/jmeter-template.jmx` file in cloud9 to restore the number of Jmeter threads. 
+Open the `~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/chaos-stack/files/jmeter-template.jmx` file in cloud9 to restore the number of Jmeter threads. 
 
 Change the value of `ThreadGroup.num_threads` in the file from 1500 to 1000 as shown below. 
 
@@ -44,7 +44,7 @@ After change
 
 And run the command below, to apply the file and restart jmeter. 
 ```bash
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-04-redeploy-load-generator.sh 
 ```
 

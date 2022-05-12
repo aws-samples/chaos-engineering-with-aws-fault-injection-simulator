@@ -10,7 +10,7 @@ weight: 40
 
 다음의 명령을 이용하여 네임스페이스를 만들고 어플리케이션을 배포합니다.
 ```sh
-cd ~/environment/fisworkshop/eks/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/eks/
 kubectl apply -f kubernetes/manifest/sockshop-demo.yaml
 ```
 

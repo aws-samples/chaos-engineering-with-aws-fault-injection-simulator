@@ -14,7 +14,7 @@ So we will apply the circuit breaker pattern. If the failure persists, it opens 
 
 File location
 ```bash
-~/environment/fisworkshop/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java
 ```
 
 Before change
@@ -63,7 +63,7 @@ As a result, some errors may appear during deployment. Although we will not cove
 {{% /notice %}}
 
 ```bash
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-04-redeploy-recommendation.sh
 ```
 
@@ -80,12 +80,12 @@ Now, when the recommendation service encounters a delay, the circuit opens and g
 If you look at the details of recommendations, you can see that the response set in the fallback. 
 
 ```
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-05-check-response-product-composite.sh
 ```
 
 ```bash
-TeamRole:~/environment/fisworkshop/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
+TeamRole:~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
 request to http://Chaos-produ-XMHKGLMY5Y8O-882044339.us-east-1.elb.amazonaws.com/product-composites/product-001
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -123,12 +123,12 @@ There was no alarm aht this time, and the experiment ended normally.
 
 When the experiment is over, the circuit closes again, and you can check that the recommendations are normally responded to. 
 ```
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-05-check-response-product-composite.sh
 ```
 
 ```bash
-TeamRole:~/environment/fisworkshop/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
+TeamRole:~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2 (main) $ ./chaos-05-check-response-product-composite.sh
 request to http://Chaos-produ-XMHKGLMY5Y8O-882044339.us-east-1.elb.amazonaws.com/product-composites/product-001
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed

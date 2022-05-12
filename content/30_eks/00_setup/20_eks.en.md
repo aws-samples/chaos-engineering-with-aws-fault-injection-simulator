@@ -22,14 +22,14 @@ The output looks as below:
 
 For this module, we need to download the scripts to create an EKS cluster from the repository. This module will use AWS CDK for infrastructure management.
 ```sh
-git clone https://github.com/dns-msa/fisworkshop.git
+git clone https://github.com/aws-samples/chaos-engineering-with-aws-fault-injection-simulator.git
 ```
 
 ## Create an EKS cluster
 
 Run the deploy deploy to create an EKS cluster:
 ```sh
-cd ~/environment/fisworkshop/eks/cdk
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/eks/cdk
 bash deploy.sh
 ```
 

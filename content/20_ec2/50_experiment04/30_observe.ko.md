@@ -12,7 +12,7 @@ weight: 30
 지연이 계속되자 시스템이 정상상태(p90 1초 이내의 상품정보 API 응답처리시간)를 벗어나서 CloudWatch 알람이 발생하였습니다.
 ![image](/images/20_ec2/experiment04_02.png)
 
-cloud9에서 `~/environment/fisworkshop/ec2/chaos-stack/files/jmeter-template.jmx` 파일을 열어 부하를 주는 Jmeter 스레드의 개수를 원복하겠습니다.
+cloud9에서 `~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/chaos-stack/files/jmeter-template.jmx` 파일을 열어 부하를 주는 Jmeter 스레드의 개수를 원복하겠습니다.
 
 파일에서 `ThreadGroup.num_threads` 의 값을 아래와 같이 1500에서 1000으로 원복합니다.
 
@@ -44,7 +44,7 @@ cloud9에서 `~/environment/fisworkshop/ec2/chaos-stack/files/jmeter-template.jm
 
 그리고 아래의 명령어를 실행하여 변경된 파일을 반영하고 jmeter를 재기동합니다.
 ```bash
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-04-redeploy-load-generator.sh 
 ```
 

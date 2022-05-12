@@ -8,7 +8,7 @@ weight: 40
 
 The product-composite service calls the recommendation service synchronously. 
 ```bash
-~/environment/fisworkshop/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java 
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/RecommendationService.java 
 ```
 
 ```java
@@ -20,7 +20,7 @@ public List<ProductComposite.Recommendation> getRecommendations(String productId
 
 And the timeout is set to 3 seconds. 
 ```bash
-~/environment/fisworkshop/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/AppConfig.java
+~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/product-composite/src/main/java/com/skipio/demo/chaos/fis/composite/product/AppConfig.java
 ```
 
 ```java

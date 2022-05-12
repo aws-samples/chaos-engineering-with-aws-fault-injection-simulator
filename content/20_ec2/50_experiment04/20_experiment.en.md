@@ -6,7 +6,7 @@ weight: 20
 
 ### Fault Injection Experiment
 
-For the experiment, open the file `~/environment/fisworkshop/ec2/chaos-stack/files/jmeter-template.jmx` in cloud9 to increase the number of Jmeter threads that apply the load. 
+For the experiment, open the file `~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/chaos-stack/files/jmeter-template.jmx` in cloud9 to increase the number of Jmeter threads that apply the load. 
 
 Change the value of `ThreadGroup.num_threads` in the file from 1000 to 1500 as shown below. 
 
@@ -38,6 +38,6 @@ After change
 
 And run the command below, to apply the file and restart jmeter. 
 ```bash
-cd ~/environment/fisworkshop/ec2/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/ec2/
 ./chaos-04-redeploy-load-generator.sh 
 ```

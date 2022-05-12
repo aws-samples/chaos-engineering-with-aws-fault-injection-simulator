@@ -27,7 +27,7 @@ kubectl -n kube-system logs -l app.kubernetes.io/name=aws-cluster-autoscaler
 
 Scale out pods for high availability.
 ```sh
-cd ~/environment/fisworkshop/eks/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/eks/
 kubectl apply -f kubernetes/manifest/sockshop-demo-ha.yaml
 ```
 

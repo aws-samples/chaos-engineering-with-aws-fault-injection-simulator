@@ -27,7 +27,7 @@ kubectl -n kube-system logs -l app.kubernetes.io/name=aws-cluster-autoscaler
 
 고가용성 확보를 위하여 포드를 증설합니다.
 ```sh
-cd ~/environment/fisworkshop/eks/
+cd ~/environment/chaos-engineering-with-aws-fault-injection-simulator/eks/
 kubectl apply -f kubernetes/manifest/sockshop-demo-ha.yaml
 ```
 
