@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: product-composite
+
+server:
+  port: 80
+
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:9000/eureka/
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      failureRateThreshold: 50
+      slowCallRateThreshold: 100
+      slowCallDurationThreshold: 3000
+      permittedNumberOfCallsInHalfOpenState: 4
+      maxWaitDurationInHalfOpenState: 1000
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 10
+      waitDurationInOpenState: 10000
+  instances:
+    product:
+      baseConfig: default
+    review:
+      baseConfig: default
+    recommendation:
+      baseConfig: default

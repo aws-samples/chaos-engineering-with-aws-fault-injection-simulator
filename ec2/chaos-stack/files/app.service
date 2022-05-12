@@ -1,0 +1,15 @@
+[Unit]
+Description=Demo Application Service
+After=network.target
+
+[Service]
+Type=forking
+
+User=root
+Group=root
+
+ExecStart=/root/app/start.sh
+ExecStop==/root/app/stop.sh
+
+[Install]
+WantedBy=multi-user.target

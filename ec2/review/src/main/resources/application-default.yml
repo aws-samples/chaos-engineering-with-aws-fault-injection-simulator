@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: review
+
+server:
+  port: 9020
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
