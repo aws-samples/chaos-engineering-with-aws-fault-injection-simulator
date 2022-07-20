@@ -4,7 +4,7 @@ chapter: false
 weight: 12
 ---
 
-## Define Steady State
+# Define Steady State
 
 Before we begin a failure experiment, we need to validate the user experience and revise the dashboard and metrics to understand that the systems are working under normal state, in other words, *steady state*.
 
@@ -23,7 +23,7 @@ This is the steady state of our application that we want to compare our user exp
 
 ![sockshop-preview](/images/30_eks/weaveworks-sockshop-frontend.png)
 
-## Hypothesis
+# Hypothesis
 
 The experiment we’ll run is to verify and fine-tune our application availability when compute nodes are terminated accidentally. Our application is deployed as a container on the Kubernetes cluster, we assume that if some nodes are teminated, the Kubernetes control plane will reschedule the pods to the other healthy nodes.
 
