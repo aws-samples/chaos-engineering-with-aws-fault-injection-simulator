@@ -5,7 +5,5 @@ chapter: true
 draft: false
 ---
 
-# Chaos Engineering
-
 {{% children showhidden="true" %}}
 
