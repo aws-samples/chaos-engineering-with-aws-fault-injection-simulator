@@ -1,5 +1,5 @@
 ---
-title: "3. Fault Injection Experiment"
+title: "Fault Injection Experiment"
 chapter: false
 weight: 13
 ---

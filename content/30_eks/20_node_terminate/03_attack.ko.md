@@ -1,5 +1,5 @@
 ---
-title: "3. 장애 주입 실험"
+title: "장애 주입 실험"
 chapter: false
 weight: 13
 ---
