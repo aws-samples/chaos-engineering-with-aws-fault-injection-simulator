@@ -1,5 +1,5 @@
 ---
-title: "1. Monitoring check"
+title: "Monitoring check"
 chapter: false
 weight: 11
 ---

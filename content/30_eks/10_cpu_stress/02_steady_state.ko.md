@@ -1,5 +1,5 @@
 ---
-title: "2. 정상 상태 정의"
+title: "정상 상태 정의"
 chapter: false
 weight: 12
 ---

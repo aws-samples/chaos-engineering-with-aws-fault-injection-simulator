@@ -1,5 +1,5 @@
 ---
-title: "2. Define Steady State"
+title: "Define Steady State"
 chapter: false
 weight: 12
 ---
