@@ -4,7 +4,7 @@ chapter: false
 weight: 13
 ---
 
-## Start Experiment
+# Perform the Experiment
 
 Make sure that all your EKS node group instances are running. 
 ```sh

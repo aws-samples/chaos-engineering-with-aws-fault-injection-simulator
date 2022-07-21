@@ -4,14 +4,14 @@ chapter: false
 weight: 14
 ---
 
-## Discussion
+# Discussion
 
 + What did you expected?
 + What happend?
 
 Then access the microservices application again. What happened? Perhaps a node shutdown by a fault injection experiment will cause the application to crash. This is because the first deployment of the application did not consider high availability.
 
-## Architecture Improvements
+# Architecture Improvements
 
 Cluster Autoscaler is a tool that automatically adjusts the size of the Kubernetes cluster when one of the following conditions is true:
 
@@ -37,7 +37,7 @@ kubectl -n sockshop get pods -w
 ```
 Enter `CTRL+C` to exit watch mode
 
-## Rerun Experiment
+# Rerun Experiment
 
 Back to the AWS FIS service page and select `Terminate EKS nodes` and start the experiment using **Actions** button. AWS FIS shuts down EKS nodes again. On the EC2 service page, you will see the instances being terminated. And you can see that new instances are created right after the EKS nodes are shut down.
 
@@ -57,6 +57,6 @@ ip-10-1-21-107.ap-northeast-2.compute.internal   NotReady   <none>   10m40s   v1
 
 However, your application is highly available, unlike the first experiment. Back to the application front-end website running on your EKS cluster. And check the application is working even though some EKS nodes are shut down.
 
-## Conclustion
+# Conclustion
 
 Chaos engineering is NOT about breaking thingsrandomly without a purpose, chaos engineering isabout breaking things in a controlled environment andthrough well-planned experiments in order to build confidence in your application to withstand turbulent conditions.
