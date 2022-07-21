@@ -4,11 +4,9 @@ chapter: true
 weight: 1
 ---
 
-# Chaos Engineering
-
 This workshop is a hands-on lab for chaos engineering, introducing sophisticated experimentation to identify weaknesses in architectures and improve systems. This lab will help you test system resiliency in a real environment. 
 
-### Welcome
+# Welcome
 
 In this workshop, you will get a hands-on introduction to Chaos Engineering by assuming the role of newest site reliability engineer. As an SRE, you’ll be responsible for keeping microservices architecture up and running during busiest “two days” of the year.
 
