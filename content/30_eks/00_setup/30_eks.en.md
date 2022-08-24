@@ -4,7 +4,7 @@ chapter: false
 weight: 20
 ---
 
-## Prerequisites
+# Prerequisites
 
 Run `aws sts get-caller-identity` and validate that your ARN contains `ChaosEngineeringWorkshop-Admin` and Instance Id.
 ```sh
@@ -25,7 +25,7 @@ For this module, we need to download the scripts to create an EKS cluster from t
 git clone https://github.com/aws-samples/chaos-engineering-with-aws-fault-injection-simulator.git
 ```
 
-## Create an EKS cluster
+# Create an EKS cluster
 
 Run the deploy deploy to create an EKS cluster:
 ```sh
@@ -37,7 +37,7 @@ bash deploy.sh
 Launching EKS and all the dependencies will take approximately 15 minutes :coffee:
 {{% /notice %}}
 
-## Update kubeconfig
+# Update kubeconfig
 
 In order to interact with your cluster through kubectl, you can use the `aws eks update-kubeconfig` AWS CLI command to configure your local kubeconfig. The EKS module will define a CloudFormation output in your stack which contains the command to run. For example:
 ```
@@ -50,13 +50,13 @@ Copy the output value and execute that aws eks update-kubeconfig command in your
 aws eks update-kubeconfig --name <your cluster name will be here> --role-arn <your role arn will be here>
 ```
 
-## Test the Cluster
+# Test the Cluster
 
 Confirm your nodes:
 ```sh
 kubectl get nodes # if we see our 3 nodes, we know we have authenticated correctly
 ```
 
-## Congratulations!
+# Congratulations!
 
 :tada: You now have a fully working Amazon EKS Cluster that is ready to use! Before you move on to any other labs, make sure to complete the steps on the next page to update the EKS Console Credentials.
