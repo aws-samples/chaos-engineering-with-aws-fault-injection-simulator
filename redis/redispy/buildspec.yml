@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login --no-include-email)
+      - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+  build:
+    commands:
+      - cd "$APP_SRC"
+      - docker build -t "${ECR_URI}:${TAG}" .
+      - docker tag "${ECR_URI}:${TAG}" "${ECR_URI}:latest"
+  post_build:
+    commands:
+      - docker push -a "${ECR_URI}"
