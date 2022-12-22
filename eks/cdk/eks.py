@@ -29,6 +29,7 @@ class EKS(core.Stack):
 
         eks.add_helm_chart("aws-cloudwatch-metrics",
             chart = "aws-cloudwatch-metrics",
+            release = "aws-cloudwatch-metrics",
             repository = "https://aws.github.io/eks-charts",
             namespace = "amazon-cloudwatch",
             values = {
@@ -38,6 +39,7 @@ class EKS(core.Stack):
 
         eks.add_helm_chart("aws-for-fluent-bit",
             chart = "aws-for-fluent-bit",
+            release = "aws-for-fluent-bit",
             repository = "https://aws.github.io/eks-charts",
             namespace = "kube-system",
             values = {
@@ -64,7 +66,7 @@ class EKS(core.Stack):
 
         eks.add_helm_chart("cluster-autoscaler",
             chart = "cluster-autoscaler",
-            release = "cluster-autoscaler",
+            release = "aws-cluster-autoscaler",
             repository = "https://kubernetes.github.io/autoscaler",
             namespace = "kube-system",
             values = {
@@ -75,14 +77,38 @@ class EKS(core.Stack):
             }
         )
 
-        with open('../kubernetes/manifest/ssm-agent.yaml', 'r') as f:
-            manifest = yaml.safe_load(f)
+        eks.add_helm_chart("chaos-mesh",
+            chart = "chaos-mesh",
+            release = "chaos-mesh",
+            version = "2.2.2",
+            repository = "https://charts.chaos-mesh.org",
+            namespace = "chaos-mesh",
+            create_namespace = True
+        )
 
-        eks.add_manifest("ssm-agent", manifest)
+        # fis role
+        fis_role = aws_iam.Role(self, "fis-role", assumed_by = aws_iam.ServicePrincipal("fis.amazonaws.com"))
+        fis_role.add_managed_policy(aws_iam.ManagedPolicy.from_aws_managed_policy_name("AdministratorAccess"))
+
+        with open('../kubernetes/manifest/cm-manager.yaml', 'r') as f:
+            cmm_manifest = yaml.safe_load(f)
+
+        eks.add_manifest("cm-manager", cmm_manifest)
+        f.close()
+
+        # update aws-auth config map
+        eks.aws_auth.add_role_mapping(fis_role, groups=["system:masters", "chaos-mesh-manager-role"])
+
+        with open('../kubernetes/manifest/ssm-agent.yaml', 'r') as f:
+            ssm_manifest = yaml.safe_load(f)
+
+        eks.add_manifest("ssm-agent", ssm_manifest)
+        f.close()
 
         self.output_props = props.copy()
         self.output_props['eks'] = eks
         self.output_props['ng'] = mng
+        self.output_props['fis_role'] = fis_role
 
     # pass objects to another stack
     @property

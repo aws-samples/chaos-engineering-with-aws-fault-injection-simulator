@@ -1,9 +1,10 @@
 from aws_cdk import (
-    aws_iam as aws_iam,
+    aws_eks as aws_eks,
     aws_fis as aws_fis,
+    aws_iam as aws_iam,
     core,
 )
-import os
+import os, json
 
 class FIS(core.Stack):
     def __init__(self, app: core.App, id: str, props, **kwargs) -> None:
@@ -11,10 +12,6 @@ class FIS(core.Stack):
 
         # copy properties
         self.output_props = props.copy()
-
-        # iam role
-        role = aws_iam.Role(self, "fis-role", assumed_by = aws_iam.ServicePrincipal("fis.amazonaws.com"))
-        role.add_managed_policy(aws_iam.ManagedPolicy.from_aws_managed_policy_name("AdministratorAccess"))
 
         # terminate eks nodes experiment
         terminate_nodes_target = aws_fis.CfnExperimentTemplate.ExperimentTemplateTargetProperty(
@@ -32,7 +29,7 @@ class FIS(core.Stack):
         aws_fis.CfnExperimentTemplate(
             self, "eks-terminate-nodes",
             description = "Terminate EKS nodes",
-            role_arn = role.role_arn,
+            role_arn = props['fis_role'].role_arn,
             targets = {'eks-nodes': terminate_nodes_target},
             actions = {'eks-terminate-nodes': terminate_nodes_action},
             stop_conditions = [
@@ -69,7 +66,7 @@ class FIS(core.Stack):
         aws_fis.CfnExperimentTemplate(
             self, "eks-cpu-stress",
             description = "CPU stress on EKS nodes",
-            role_arn = role.role_arn,
+            role_arn = props['fis_role'].role_arn,
             targets = {'eks-nodes': cpu_stress_target},
             actions = {'eks-cpu-stress': cpu_stress_action},
             stop_conditions = [aws_fis.CfnExperimentTemplate.ExperimentTemplateStopConditionProperty(
@@ -100,7 +97,7 @@ class FIS(core.Stack):
         aws_fis.CfnExperimentTemplate(
             self, "eks-disk-stress",
             description = "Disk stress on EKS nodes",
-            role_arn = role.role_arn,
+            role_arn = props['fis_role'].role_arn,
             targets = {'eks-nodes': disk_stress_target},
             actions = {'eks-disk-stress': disk_stress_action},
             stop_conditions = [aws_fis.CfnExperimentTemplate.ExperimentTemplateStopConditionProperty(
@@ -108,6 +105,42 @@ class FIS(core.Stack):
                 value = f"{props['disk_alarm'].alarm_arn}"
             )],
             tags = {'Name': 'Disk stress on EKS nodes'}
+        )
+
+        # chaos-mesh pod-kill
+        aws_fis.CfnExperimentTemplate(
+            self, "eks-chaos-mesh-disrupt-pod",
+            description = "Disrupt pod",
+            role_arn = props['fis_role'].role_arn,
+            targets = {'eks-cluster': aws_fis.CfnExperimentTemplate.ExperimentTemplateTargetProperty(
+                resource_type = "aws:eks:cluster",
+                resource_arns = [f"{props['eks'].cluster_arn}"],
+                selection_mode = "ALL"
+            )},
+            actions = {'eks-kill-pod': aws_fis.CfnExperimentTemplate.ExperimentTemplateActionProperty(
+                action_id = "aws:eks:inject-kubernetes-custom-resource",
+                parameters = dict(
+                    kubernetesApiVersion = "chaos-mesh.org/v1alpha1",
+                    kubernetesKind = "PodChaos",
+                    kubernetesNamespace = "chaos-mesh",
+                    kubernetesSpec = json.dumps({
+                        "action": "pod-kill",
+                        "mode": "one",
+                        "selector": {
+                            "namespaces": ["sockshop"],
+                            "labelSelectors": {"name": "carts"},
+                        },
+                        "gracePeriod": 0
+                    }),
+                    maxDuration = "PT5M"
+                ),
+                targets = {'Cluster': 'eks-cluster'}
+            )},
+            stop_conditions = [aws_fis.CfnExperimentTemplate.ExperimentTemplateStopConditionProperty(
+                source = "aws:cloudwatch:alarm",
+                value = f"{props['cpu_alarm'].alarm_arn}"
+            )],
+            tags = {'Name': 'Inject pod failure using chaos mesh'}
         )
 
     # pass objects to another stack
