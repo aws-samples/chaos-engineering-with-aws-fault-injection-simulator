@@ -181,7 +181,7 @@ class FIS(Stack):
                 source = "aws:cloudwatch:alarm",
                 value = f"{props['cpu_alarm'].alarm_arn}"
             )],
-            tags = {'Name': 'Stress Pod CPU'}
+            tags = {'Name': 'CPU stress on EKS pods'}
         )
 
     # pass objects to another stack
