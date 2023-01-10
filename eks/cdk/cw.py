@@ -1,10 +1,10 @@
 from aws_cdk import (
     aws_cloudwatch as aws_cw,
-    core,
+    Stack, App, Duration
 )
 
-class CloudWatchAlarm(core.Stack):
-    def __init__(self, app: core.App, id: str, props, **kwargs) -> None:
+class CloudWatchAlarm(Stack):
+    def __init__(self, app: App, id: str, props, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
 
         cpu_alarm = aws_cw.Alarm(self, "cpu-alarm",
@@ -12,8 +12,8 @@ class CloudWatchAlarm(core.Stack):
                 namespace = "ContainerInsights",
                 metric_name = "node_cpu_utilization",
                 statistic = "Average",
-                period = core.Duration.seconds(30),
-                dimensions = dict(
+                period = Duration.seconds(30),
+                dimensions_map = dict(
                     ClusterName = f"{props['eks'].cluster_name}"
                 )
             ),
@@ -28,8 +28,8 @@ class CloudWatchAlarm(core.Stack):
                 namespace = "ContainerInsights",
                 metric_name = "node_filesystem_utilization",
                 statistic = "p90",
-                period = core.Duration.seconds(30),
-                dimensions = dict(
+                period = Duration.seconds(30),
+                dimensions_map = dict(
                     ClusterName = f"{props['eks'].cluster_name}"
                 )
             ),
@@ -44,8 +44,8 @@ class CloudWatchAlarm(core.Stack):
                 namespace = "ContainerInsights",
                 metric_name = "service_number_of_running_pods",
                 statistic = "Average",
-                period = core.Duration.seconds(10),
-                dimensions = dict(
+                period = Duration.seconds(10),
+                dimensions_map = dict(
                     Namespace = 'sockshop',
                     Service = 'front-end',
                     ClusterName = f"{props['eks'].cluster_name}"

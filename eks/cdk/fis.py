@@ -2,12 +2,12 @@ from aws_cdk import (
     aws_eks as aws_eks,
     aws_fis as aws_fis,
     aws_iam as aws_iam,
-    core,
+    Stack, App
 )
 import os, json
 
-class FIS(core.Stack):
-    def __init__(self, app: core.App, id: str, props, **kwargs) -> None:
+class FIS(Stack):
+    def __init__(self, app: App, id: str, props, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
 
         # copy properties

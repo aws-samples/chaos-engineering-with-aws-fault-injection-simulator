@@ -1,13 +1,11 @@
-from aws_cdk import (
-    core,
-)
+from aws_cdk import App
 from ssm import DiskStressDocument
 from cw import CloudWatchAlarm
 from eks import EKS
 from fis import FIS
 
 props = {'namespace': 'fisworkshop'}
-app = core.App()
+app = App()
 
 ssm = DiskStressDocument(app, f"{props['namespace']}-ssm", props)
 eks = EKS(app, f"{props['namespace']}-eks", props)
