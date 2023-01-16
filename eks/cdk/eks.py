@@ -2,12 +2,12 @@ from aws_cdk import (
     aws_ec2 as aws_ec2,
     aws_eks as aws_eks,
     aws_iam as aws_iam,
-    core,
+    Stack, App
 )
 import yaml
 
-class EKS(core.Stack):
-    def __init__(self, app: core.App, id: str, props, **kwargs) -> None:
+class EKS(Stack):
+    def __init__(self, app: App, id: str, props, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
 
         vpc = aws_ec2.Vpc(self, "vpc", nat_gateways = 1)
@@ -44,7 +44,7 @@ class EKS(core.Stack):
             namespace = "kube-system",
             values = {
                 "cloudWatch": {
-                    "region": core.Stack.of(self).region,
+                    "region": Stack.of(self).region,
                     "logGroupName": f"/aws/containerinsights/{eks.cluster_name}/application"
                 }
             }
@@ -70,7 +70,7 @@ class EKS(core.Stack):
             repository = "https://kubernetes.github.io/autoscaler",
             namespace = "kube-system",
             values = {
-                "awsRegion": core.Stack.of(self).region,
+                "awsRegion": Stack.of(self).region,
                 "autoDiscovery": {
                     "clusterName": eks.cluster_name,
                 }

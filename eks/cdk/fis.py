@@ -2,12 +2,12 @@ from aws_cdk import (
     aws_eks as aws_eks,
     aws_fis as aws_fis,
     aws_iam as aws_iam,
-    core,
+    Stack, App
 )
 import os, json
 
-class FIS(core.Stack):
-    def __init__(self, app: core.App, id: str, props, **kwargs) -> None:
+class FIS(Stack):
+    def __init__(self, app: App, id: str, props, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
 
         # copy properties
@@ -140,7 +140,48 @@ class FIS(core.Stack):
                 source = "aws:cloudwatch:alarm",
                 value = f"{props['cpu_alarm'].alarm_arn}"
             )],
-            tags = {'Name': 'Inject pod failure using chaos mesh'}
+            tags = {'Name': 'Terminate Pods'}
+        )
+
+        # chaos-mesh pod-cpu
+        aws_fis.CfnExperimentTemplate(
+            self, "eks-chaos-mesh-stress-pod-cpu",
+            description = "Stress pod cpu",
+            role_arn = props['fis_role'].role_arn,
+            targets = {'eks-cluster': aws_fis.CfnExperimentTemplate.ExperimentTemplateTargetProperty(
+                resource_type = "aws:eks:cluster",
+                resource_arns = [f"{props['eks'].cluster_arn}"],
+                selection_mode = "ALL"
+            )},
+            actions = {'eks-pod-cpu': aws_fis.CfnExperimentTemplate.ExperimentTemplateActionProperty(
+                action_id = "aws:eks:inject-kubernetes-custom-resource",
+                parameters = dict(
+                    kubernetesApiVersion = "chaos-mesh.org/v1alpha1",
+                    kubernetesKind = "StressChaos",
+                    kubernetesNamespace = "chaos-mesh",
+                    kubernetesSpec = json.dumps({
+                        "duration": "1m",
+                        "mode": "all",
+                        "selector": {
+                            "namespaces": ["sockshop"],
+                            "labelSelectors": {"name": "carts"},
+                        },
+                        "stressors": {
+                            "cpu": {
+                                "workers": 1,
+                                "load": 80
+                            }
+                        }
+                    }),
+                    maxDuration = "PT5M"
+                ),
+                targets = {'Cluster': 'eks-cluster'}
+            )},
+            stop_conditions = [aws_fis.CfnExperimentTemplate.ExperimentTemplateStopConditionProperty(
+                source = "aws:cloudwatch:alarm",
+                value = f"{props['cpu_alarm'].alarm_arn}"
+            )],
+            tags = {'Name': 'CPU stress on EKS pods'}
         )
 
     # pass objects to another stack

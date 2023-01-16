@@ -1,12 +1,12 @@
 from aws_cdk import (
     aws_ssm as aws_ssm,
-    core,
+    Stack, App
 )
 import os
 import yaml
 
-class DiskStressDocument(core.Stack):
-    def __init__(self, app: core.App, id: str, props, **kwargs) -> None:
+class DiskStressDocument(Stack):
+    def __init__(self, app: App, id: str, props, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
 
         with open('disk-stress.yaml', 'r') as f:
