@@ -13,7 +13,7 @@ class EKS(Stack):
         vpc = aws_ec2.Vpc(self, "vpc", nat_gateways = 1)
         eks = aws_eks.Cluster(self, "eks",
             vpc = vpc,
-            version = aws_eks.KubernetesVersion.V1_21,
+            version = aws_eks.KubernetesVersion.V1_24,
             default_capacity = 0
         )
 
