@@ -24,6 +24,10 @@ class EKS(Stack):
             max_size = 9
         )
 
+        instance_profile = aws_iam.CfnInstanceProfile(self, "instance_profile",
+          roles = [mng.role.role_name],
+        )
+
         mng.role.add_managed_policy(aws_iam.ManagedPolicy.from_aws_managed_policy_name("CloudWatchAgentServerPolicy"))
         mng.role.add_managed_policy(aws_iam.ManagedPolicy.from_aws_managed_policy_name("AmazonSSMManagedInstanceCore"))
 
@@ -74,6 +78,43 @@ class EKS(Stack):
                 "autoDiscovery": {
                     "clusterName": eks.cluster_name,
                 }
+            }
+        )
+
+        mng.role.add_to_policy(aws_iam.PolicyStatement(
+            actions = [
+                "ec2:CreateLaunchTemplate",
+                "ec2:CreateFleet",
+                "ec2:RunInstances",
+                "ec2:CreateTags",
+                "iam:PassRole",
+                "ec2:TerminateInstances",
+                "ec2:DescribeImages",
+                "ec2:DescribeSpotPriceHistory",
+                "ec2:DescribeLaunchTemplates",
+                "ec2:DeleteLaunchTemplate",
+                "ec2:DescribeInstances",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeInstanceTypes",
+                "ec2:DescribeInstanceTypeOfferings",
+                "ec2:DescribeAvailabilityZones",
+                "ssm:GetParameter",
+                "pricing:GetProducts"
+            ],
+            effect = aws_iam.Effect.ALLOW,
+            resources = ["*"]
+        ))
+
+        eks.add_helm_chart("karpenter",
+            chart = "karpenter",
+            release = "karpenter",
+            repository = "https://charts.karpenter.sh",
+            namespace = "kube-system",
+            values = {
+                "clusterName": eks.cluster_name,
+                "clusterEndpoint": eks.cluster_endpoint,
+                "aws.defaultInstanceProfile": instance_profile.attr_arn,
             }
         )
 
