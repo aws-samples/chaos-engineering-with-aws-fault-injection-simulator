@@ -43,8 +43,8 @@ class CloudWatchAlarm(Stack):
             metric = aws_cw.Metric(
                 namespace = "ContainerInsights",
                 metric_name = "service_number_of_running_pods",
-                statistic = "Average",
-                period = Duration.seconds(10),
+                statistic = "Maximum",
+                period = Duration.seconds(30),
                 dimensions_map = dict(
                     Namespace = 'sockshop',
                     Service = 'front-end',
