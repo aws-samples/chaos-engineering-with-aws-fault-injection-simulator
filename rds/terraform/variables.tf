@@ -1,0 +1,41 @@
+# Variables for providing to module fixture codes
+
+### network
+variable "aws_region" {
+  description = "The aws region"
+  type        = string
+}
+
+variable "azs" {
+  description = "A list of availability zones"
+  type        = list(string)
+}
+
+variable "cidr" {
+  description = "The vpc CIDR (e.g. 10.0.0.0/16)"
+  type        = string
+}
+
+variable "kubernetes_version" {
+  description = "Kubernetes version"
+  type        = string
+}
+
+variable "aurora_version" {
+  description = "Aurora-MySQL version"
+  type        = string
+}
+
+### description
+variable "name" {
+  description = "The logical name of the module instance"
+  type        = string
+  default     = null
+}
+
+### tags
+variable "tags" {
+  description = "The key-value maps for tagging"
+  type        = map(string)
+  default     = {}
+}
