@@ -1,0 +1,13 @@
+Django==3.1.4
+django-cors-headers==3.6.0
+django-ipware==3.0.2
+django-redis==4.12.1
+python-dotenv==0.15.0
+pytz==2020.4
+redis==4.3.3
+rfc3986==1.4.0
+sniffio==1.2.0
+sqlparse==0.4.1
+urllib3==1.26.2
+uvicorn==0.13.2
+uvloop==0.14.0
