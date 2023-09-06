@@ -7,7 +7,7 @@ pytz==2020.4
 redis==4.4.4
 rfc3986==1.4.0
 sniffio==1.2.0
-sqlparse==0.4.1
+sqlparse==0.4.4
 urllib3==1.26.5
 uvicorn==0.13.2
 uvloop==0.14.0
